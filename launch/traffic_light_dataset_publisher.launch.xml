@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="image_folder" default=""/>
+  <arg name="label_folder" default=""/>
+  <arg name="camera_info_yaml" default="$(find-pkg-share traffic_light_dataset_publisher)/config/test_calibration.yaml"/>
+  <arg name="out/image" default="/sensing/camera/traffic_light/image_raw"/>
+  <arg name="out/camera_info" default="/sensing/camera/traffic_light/camera_info"/>
+  <arg name="out/rois" default="/perception/traffic_light_recognition/rough/rois"/>
+
+  <node pkg="traffic_light_dataset_publisher" exec="traffic_light_dataset_publisher" name="traffic_light_dataset_publihser" output="screen">
+    <remap from="out/image" to="$(var out/image)"/>
+    <remap from="out/camera_info" to="$(var out/camera_info)"/>
+    <remap from="out/rois" to="$(var out/rois)"/>
+    <param name="image_folder" value="$(var image_folder)"/>
+    <param name="label_folder" value="$(var label_folder)"/>
+    <param name="camera_info_yaml" value="$(var camera_info_yaml)"/>
+  </node>
+
+</launch>
